@@ -14,7 +14,7 @@ public class PlayGame {
 		int dealVal, handVal, chips = 1000;
 		boolean cont = true;
 		Scanner userIn = new Scanner(System.in);
-		String hit, hand, con;
+		String hit, hand;
 		
 		deck = DeckMan.createDeck();
 		
@@ -73,11 +73,15 @@ public class PlayGame {
 			
 			dealVal = DeckMan.dealerAI(deck, dealHand, dealVal);
 			
-			//Check the winner, award/take away chips.
 			if (handVal > dealVal && handVal <= 21){
 				System.out.printf("\nFinal score: \nPlayer: %d. \nDealer: %d", handVal, dealVal);
 				System.out.println("\nYou Win!!");
 				chips += bet*2;
+			}
+			else if (handVal == dealVal){
+				System.out.printf("\nFinal score: \nPlayer: %d. \nDealer: %d", handVal, dealVal);
+				System.out.println("\nDraw!!");
+				chips += bet;
 			}
 			else if (handVal <= 21 && dealVal > 21){
 				System.out.printf("\nFinal score: \nPlayer: %d. \nDealer: %d", handVal, dealVal);
@@ -88,24 +92,13 @@ public class PlayGame {
 				System.out.printf("\nFinal score: \nPlayer: %d. \nDealer: %d", handVal, dealVal);
 				System.out.println("\nYou busted! Loser!");
 			}
-			else if (handVal == dealVal){
-				System.out.printf("\nFinal score: \nPlayer: %d. \nDealer: %d", handVal, dealVal);
-				System.out.println("\nDraw!!");
-				chips += bet;
-			}
 			else {
 				System.out.printf("\nFinal score: \nPlayer: %d. \nDealer: %d", handVal, dealVal);
 				System.out.println("\nYou Lose!!");
 			}
-			
-			System.out.println("\nContinue? (y/n)");
-			con = userIn.next().toLowerCase();
-			if (con.equals("n") || (con.equals("no")))
-				cont = false;
 
 		}
 		
-		System.out.println("Game over. Final chip count: " + chips + " chips");
 		userIn.close();
 
 	}
